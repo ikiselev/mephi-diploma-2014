@@ -1,0 +1,128 @@
+\documentclass[a4paper,12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{polyglossia}
+\setdefaultlanguage{russian}
+\usepackage{amssymb,amsfonts,amsmath,mathtext,cite,enumerate,float}
+
+
+
+\usepackage[toc]{appendix}
+\usepackage{titletoc}
+\usepackage{tocloft}
+\usepackage{etoolbox}
+\usepackage{textcase}
+\usepackage{titlesec}
+
+
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+
+
+
+\makeatletter
+
+%chapter - Делаем текст большими буквами и с точками в содержании
+\renewcommand*\l@chapter[2]{%
+  \ifnum \c@tocdepth >\m@ne
+    \addpenalty{-\@highpenalty}%
+    \vskip 1.0em \@plus\p@
+    \setlength\@tempdima{1.5em}%
+    \begingroup
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      \leavevmode
+      \advance\leftskip\@tempdima
+      \hskip -\leftskip
+      \MakeTextUppercase{#1}\nobreak\leaders\hbox{$\m@th
+\mkern \@dotsep mu\hbox{.}\mkern \@dotsep
+mu$}\hfill
+\nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+      \penalty\@highpenalty
+    \endgroup
+  \fi}
+
+
+
+
+%http://tex.stackexchange.com/questions/63390/how-to-decrease-spacing-before-chapter-title
+%since \@makechapterhead adds a 50pt space above the title and 40pt after it.
+%A different strategy might be to redefine \@makechapterhead yourself:
+
+\def\@makechapterhead#1{%
+  %%%%%\vspace*{50\p@}% %%% removed!
+  {\parindent \z@ \raggedright
+    \normalfont
+    \interlinepenalty\@M
+    \large \bfseries \MakeUppercase{#1}\par\nobreak
+    \vskip 10\p@
+  }}
+
+%Со звездочкой
+\def\@makeschapterhead#1{%
+  %%%%%\vspace*{50\p@}% %%% removed!
+  {\parindent \z@ \raggedright
+    \normalfont
+    \interlinepenalty\@M
+    \Large \bfseries \MakeUppercase{#1}\par\nobreak
+    \vskip 10\p@
+  }}
+
+
+
+\titleformat*{\section}{\large\bfseries\itshape}
+
+
+\makeatother
+
+
+\usepackage{geometry} % Меняем поля страницы
+\geometry{left=1.5cm}% левое поле
+\geometry{right=1.5cm}% правое поле
+\geometry{top=1cm}% верхнее поле
+\geometry{bottom=2cm}% нижнее поле
+
+
+\renewcommand{\theenumi}{\arabic{enumi}}% Меняем везде перечисления на цифра.цифра
+\renewcommand{\labelenumi}{\arabic{enumi}}% Меняем везде перечисления на цифра.цифра
+\renewcommand{\theenumii}{.\arabic{enumii}}% Меняем везде перечисления на цифра.цифра
+\renewcommand{\labelenumii}{\arabic{enumi}.\arabic{enumii}.}% Меняем везде перечисления на цифра.цифра
+\renewcommand{\theenumiii}{.\arabic{enumiii}}% Меняем везде перечисления на цифра.цифра
+\renewcommand{\labelenumiii}{\arabic{enumi}.\arabic{enumii}.\arabic{enumiii}.}% Меняем везде перечисления на цифра.цифра
+
+
+\usepackage{setspace}
+\setstretch{1.5}
+
+\setcounter{tocdepth}{1} %n=1 это chapter и section в оглавлении
+
+\parindent=1cm %абзацный отступ
+
+
+\input{userVariables} %переменные: тема работы, студент и т.д.
+
+
+\begin{document}
+
+\input{title}% это титульный лист
+\tableofcontents % это оглавление, которое генерируется автоматически
+\newpage
+\input{annotation}% аннотация
+
+\chapter*{Техническое задание}
+	\addcontentsline{toc}{chapter}{Техническое задание}
+	\input{specification}% текст технического задания
+
+\chapter*{Введение}
+	\addcontentsline{toc}{chapter}{Введение}
+
+\input{body}
+
+\chapter*{Литература}
+	\addcontentsline{toc}{chapter}{Литература}
+
+\chapter*{Приложение}
+	\addcontentsline{toc}{chapter}{Приложение}
+	\section{Программа отладки на Java}
+	\section{Программа управления на C}
+
+\end{document}
