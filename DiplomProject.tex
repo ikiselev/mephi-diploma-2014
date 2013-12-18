@@ -30,6 +30,8 @@
 
 
 
+%Титульный лист включается в общую нумерацию, но на самом титульном листе номер не ставится. На последующих страницах номер проставляется в правом верхнем углу. 
+
 \fancyhf{}
 \fancyhead[R]{\thepage}
 \pagestyle{fancy}
@@ -76,7 +78,7 @@ mu$}\hfill
   {\parindent \z@ \raggedright
     \normalfont
     \interlinepenalty\@M
-    \large \bfseries \MakeUppercase{#1}\par\nobreak
+    \large \bfseries \thechapter.  \MakeUppercase{#1}\par\nobreak
     \vskip 10\p@
   }}
 
@@ -117,8 +119,6 @@ mu$}\hfill
 \parindent=1cm %абзацный отступ
 
 
-%Титульный лист включается в общую нумерацию, но на самом титульном листе номер не ставится. На последующих страницах номер проставляется в правом верхнем углу. 
-
 
 \input{userVariables} %переменные: тема работы, студент и т.д.
 
@@ -137,6 +137,9 @@ mu$}\hfill
 	\input{specification}% текст технического задания
 
 
+\renewcommand{\cfttoctitlefont}{\Large\bfseries\MakeUppercase}
+\setlength{\cftbeforetoctitleskip}{-3em}
+\renewcommand{\contentsname}{Содержание}
 \tableofcontents % это оглавление, которое генерируется автоматически
 \newpage
 
